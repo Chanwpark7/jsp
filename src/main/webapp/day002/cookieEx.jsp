@@ -17,8 +17,8 @@
 				(Calendar.getInstance().getTimeInMillis()/1000));
 		cookie.setMaxAge(exp);
 		response.addCookie(cookie);
-		
-		out.println(Calendar.getInstance().getTime());
 	%>
+	
+	<a href="../day003/viewCookies.jsp">쿠키보기</a>
 </body>
 </html>
