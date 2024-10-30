@@ -24,4 +24,28 @@
   	<servlet-name>myserv</servlet-name>
   	<url-pattern>*.do</url-pattern>
   </servlet-mapping>
+  
+  <!-- WAS 가 시작될 때 초기화 정보를 설정 -->
+  <context-param>
+  	<param-name>init_param1</param-name>
+  	<param-value>contents saved</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>propSrc</param-name>
+  	<param-value>D:\\initsrc\\dosome.prop</param-value>
+  </context-param>
+  
+  <!-- 예외(error) 발생시 핸들링 설정 -->
+  <error-page>
+  	<error-code>404</error-code><!-- page NotFound -->
+  	<location>/day002/exceptHandler.jsp</location>
+  </error-page>
+  <error-page>
+  	<error-code>405</error-code><!-- forbidden -->
+  	<location>/day002/exceptHandler.jsp</location>
+  </error-page>
+  <error-page>
+  	<error-code>500</error-code><!-- server down -->
+  	<location>/day002/exceptHandler.jsp</location>
+  </error-page>
 </web-app>
