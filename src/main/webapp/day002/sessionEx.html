@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!-- 
+	session scope : 로그아웃이  되어야만 사라지는 메모리 영역
+	로그아웃을 할 수 있는 방법은 session 객체의 invalidate()를 호출하는 방법과
+	브라우저를 모두 닫는 방법등이 있다.(탭만 닫아선 안됨)
+	세션 스콥에 저장된 데이터는 session 을 허용하는 jsp 에서 get 가능하며, 필요시마다 추가, 삭제 등을 할 수 있다.
+-->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>Sign in</h2>
+	<form action = "loginPrc.jsp" method="post">
+		ID : <input type = "text" name = "id"><br>
+		PW : <input type = "text" name = "pw"><br>
+		
+		<input type = "submit" value = "전송">
+	</form>
+</body>
+</html>
