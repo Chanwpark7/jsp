@@ -9,5 +9,6 @@
 
 	while(reqSes.hasMoreElements()){
 		out.println(reqSes.nextElement());%><br><%
+		out.println("/hi/");
 	}
 %>

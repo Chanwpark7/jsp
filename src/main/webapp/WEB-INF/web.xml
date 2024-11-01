@@ -35,6 +35,24 @@
   	<param-value>D:\\initsrc\\dosome.prop</param-value>
   </context-param>
   
+  <!-- DB 정보 저장 -->
+  <context-param>
+  	<param-name>driver</param-name>
+  	<param-value>oracle.jdbc.OracleDriver</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>url</param-name>
+  	<param-value>jdbc:oracle:thin:@localhost:1522:orcl</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>account</param-name>
+  	<param-value>chanw</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>pw</param-name>
+  	<param-value>chanw</param-value>
+  </context-param>
+  
   <!-- 예외(error) 발생시 핸들링 설정 -->
   <error-page>
   	<error-code>404</error-code><!-- page NotFound -->
