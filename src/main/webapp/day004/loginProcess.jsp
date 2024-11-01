@@ -36,7 +36,7 @@
 		*/
 		session.setAttribute("loginOk", dto);
 		
-		response.sendRedirect("loginForm.jsp");
+		response.sendRedirect("../board1/writeForm.jsp");
 	}else{
 		request.setAttribute("LoginErr", "ID 혹은 PW 가 틀렸습니다.");
 		request.getRequestDispatcher("loginForm.jsp").forward(request, response);
