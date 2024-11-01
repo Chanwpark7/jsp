@@ -20,7 +20,7 @@
 	
 	int res = pstmt.executeUpdate();
 	
-	out.println(res + " 행이 insert 됨");
+	//out.println(res + " 행이 insert 됨");
 	
 	pooler.close();
 	
