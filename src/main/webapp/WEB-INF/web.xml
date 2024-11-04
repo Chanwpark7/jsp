@@ -53,6 +53,16 @@
   	<param-value>chanw</param-value>
   </context-param>
   
+  <!-- paging 처리를 위한 공통 페이지 속성 정의 -->
+  <context-param>
+  	<param-name>POSTS_PER_PAGE</param-name>
+  	<param-value>10</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>POSTS_PER_BLOCK</param-name>
+  	<param-value>5</param-value>
+  </context-param>
+  
   <!-- 예외(error) 발생시 핸들링 설정 -->
   <error-page>
   	<error-code>404</error-code><!-- page NotFound -->

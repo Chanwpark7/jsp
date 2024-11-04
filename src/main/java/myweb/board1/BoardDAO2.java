@@ -9,7 +9,7 @@ import java.util.Map;
 
 import myweb.jdbc.DBConnPool;
 
-public class BoardDAO {
+public class BoardDAO2 {
 
 	DBConnPool connPool;
 	Connection conn;
@@ -44,16 +44,20 @@ public class BoardDAO {
 		PreparedStatement pstmt;
 		ResultSet rs;
 		
-		String sql = "Select * from board";
+		String sql = "select * from("
+				+ "select TB.*, rownum rnum from("
+				+ "select * from board";
 		if(map.get("searchWord") != null) {
 			sql += " where lower(" + map.get("searchField") + ") Like lower('%" + map.get("searchWord")
 				+ "%')";
 		}
-		sql +=  " order by num desc";
+		sql +=  " order by num desc) TB ) where rnum between ? and ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
+			pstmt.setString(1, map.get("start").toString());
+			pstmt.setString(2, map.get("end").toString());
 			
 			//모든 row 를 순회하면서 DTO 값 세팅 및 list에 add
 			while(rs.next()) {
@@ -185,7 +189,7 @@ public class BoardDAO {
 		return res;
 	}
 	
-	public BoardDAO() {
+	public BoardDAO2() {
 		connPool = new DBConnPool();
 		conn = connPool.conn;
 	}

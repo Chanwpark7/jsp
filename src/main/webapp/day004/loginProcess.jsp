@@ -1,3 +1,4 @@
+<%@page import="myweb.common.JSFunction"%>
 <%@page import="myweb.membership.MemberDAO"%>
 <%@page import="myweb.membership.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -36,9 +37,10 @@
 		*/
 		session.setAttribute("loginOk", dto);
 		
-		response.sendRedirect("../board1/writeForm.jsp");
+		response.sendRedirect("../board1/list.jsp");
 	}else{
-		request.setAttribute("LoginErr", "ID 혹은 PW 가 틀렸습니다.");
-		request.getRequestDispatcher("loginForm.jsp").forward(request, response);
+		//request.setAttribute("LoginErr", "ID 혹은 PW 가 틀렸습니다.");
+		//request.getRequestDispatcher("loginForm.jsp").forward(request, response);
+		JSFunction.alertBack("계정이 틀림", out);
 	}
 %>

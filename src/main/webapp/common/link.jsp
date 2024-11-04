@@ -20,7 +20,7 @@
 			%>
 			
 			&nbsp;&nbsp;&nbsp;
-			<a href = "../board/list.jsp">게시판(페이징X)</a>
+			<a href = "../board1/list.jsp">게시판(페이징X)</a>
 			
 			&nbsp;&nbsp;&nbsp;
 			<a href = "../boardPaging/list.jsp">게시판(페이징O)</a>
