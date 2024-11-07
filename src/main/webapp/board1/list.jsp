@@ -1,8 +1,11 @@
+<%@page import="myweb.board1.BoardDAO"%>
+<%@page import="myweb.common.BoardPage"%>
+<%@page import="org.xml.sax.Parser"%>
 <%@page import="myweb.board1.Board1DTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
-<%@page import="myweb.board1.BoardDAO"%>
+<%@page import="myweb.board1.BoardDAO2"%>
 <%@page import="myweb.board1.NormDBConnTest"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -25,7 +28,7 @@
 	*/
 	
 	//DBConn 객체 생성
-	BoardDAO dao = new BoardDAO();
+	BoardDAO2 dao = new BoardDAO2();
 	
 	//리스트폼에 검색어 필드 넣을 것. 거기에 검색어를 입력 후 버튼을 클릭하면 관련 게시물이 리스트에 뿌려질 것.
 	//즉, list.jsp --> list.jsp를 호출, 검색어가 존재하면 get 방식으로 파라미터가 전달될 것.
@@ -36,9 +39,8 @@
 	
 	String searchField = request.getParameter("searchField");
 	String searchWord = request.getParameter("searchWord");
-	
-	if(searchWord==null){
-		searchWord = "";
+	if(searchWord == null){
+		searchWord="";
 	}
 	if(searchField != null){
 		param.put("searchField", searchField);
@@ -69,8 +71,9 @@
 		pageNum = Integer.parseInt(pageTemp);
 	}
 	
+	
 	//시작 페이지 연산 시작
-	int start = (pageNum - 1)* pageSize+1;
+	int start = (pageNum - 1) * pageSize + 1;
 	int end = (pageNum * 10);
 	param.put("start",start);
 	param.put("end",end);
@@ -91,13 +94,13 @@
 <body>
 	<!-- 공통으로 사용될 메뉴등의 페이지 include -->
 	<jsp:include page="../common/link.jsp"/>
-	<h2>게시글 목록 보기</h2>
+	<h2>게시글 목록 보기 - 현재 페이지 : <%=pageNum %>(전체 페이지 : <%=totalPage %>)</h2>
 	
 	<!-- 
 		이 목록에서 상세보기나 키워드 검색이 이뤄질 수 있음.
 		따라서 전체를 form 내부에 구성하고 검색을 요청시엔 자신이 자신을 request 함.
 	-->
-	<form method = "get">
+	<form method = "get" action="list.jsp">
 		<table border = "1" style = "width : 90%">
 			<tr>
 				<th>
@@ -144,8 +147,11 @@
 		<%
 			}else{
 				int virtualNum = 0;//게시판에 뿌려질 글 번호의 실제 변수. 주의! 이 값은 실제 DB 상의 글번호가 아닙니다.
+				int cntNum = 0;
 				for(Board1DTO dto : list){
-					virtualNum = totalCnt--;
+					//virtualNum = totalCnt--; 페이징 미처리시엔 전체 글 목록을 가져와서 모든 글 번호를 변수에 담았지만
+					//페이지에 맞게 가져온 글 번호를 변경처리 해야함.
+					virtualNum = totalCnt - (((pageNum -1) * pageSize) + cntNum++);
 		%>
 			<tr align = "center">
 				<td>
@@ -171,6 +177,15 @@
 	</table>
 	<table border = "1" width = "90%">
 		<tr align = "right">
+			<td align = "center">
+				<!-- 페이징 처리 index 추가 -->
+				<%if(searchWord.equals("")){%>
+					<%=BoardPage.pagingStr(totalCnt, pageSize, blockPage, pageNum, request.getRequestURI()) %>
+				<%}else {%>
+					<%=BoardPage.pagingStr2(totalCnt, pageSize, blockPage, pageNum, request.getRequestURI(),searchWord,searchField)%>
+				<%}%>
+				
+			</td>
 			<td>
 				<button onclick = "location.href='writeForm.jsp';">글쓰기</button>
 			</td>

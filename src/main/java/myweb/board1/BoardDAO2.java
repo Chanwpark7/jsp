@@ -22,7 +22,7 @@ public class BoardDAO2 {
 		ResultSet rs;
 		
 		String sql = "Select count (*) from board";
-		if(map.get("searchWork") !=null) { //게시물 조회시에도 활용
+		if(map.get("searchWord") !=null) { //게시물 조회시에도 활용
 			sql += " where " + map.get("searchField") + " Like '%" + map.get("searchWord") + "%'";
 		}
 		
@@ -55,10 +55,11 @@ public class BoardDAO2 {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			rs=pstmt.executeQuery();
-			pstmt.setString(1, map.get("start").toString());
-			pstmt.setString(2, map.get("end").toString());
+			pstmt.setInt(1, Integer.parseInt(map.get("start").toString()));
+			pstmt.setInt(2, Integer.parseInt(map.get("end").toString()));
 			
+			System.out.println(sql);
+			rs=pstmt.executeQuery();
 			//모든 row 를 순회하면서 DTO 값 세팅 및 list에 add
 			while(rs.next()) {
 				//하나의 Row 가 여기서부터 검색 시작, BoardDTO를 여기서 생성
