@@ -1,40 +1,22 @@
 package myweb.common;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
 		
-		BufferedReader br = new BufferedReader(
-				new InputStreamReader(
-				System.in));
-		BufferedWriter bw = new BufferedWriter(
-				new OutputStreamWriter(
-				System.out));
+		Scanner sc = new Scanner(System.in);
+		int x = sc.nextInt();
+		int max = 0;
+		int count = 0;
 		
-		int res = 0;
-		
-		String[] arr = new String[2];
-
-		try {
-			String x = br.readLine();
-			int a = Integer.parseInt(x);
-
-			for(int i = 0; i<a;i++) {
-				String y = br.readLine();
-				arr = y.split(" ");
-				res = Integer.parseInt(arr[0])+Integer.parseInt(arr[1]);
-				
-				String s = String.valueOf(res);
-				bw.write(s+"\n");
+		for(int i = 0; i<x;i++) {
+			count++;
+			int y = sc.nextInt();
+			if(y>max) {
+				max = y;
 			}
-			bw.flush();
-			bw.close();
-		} catch (Exception e) {
-			e.getMessage();
 		}
+		System.out.println(max+"\n"+count);
 	}
 }

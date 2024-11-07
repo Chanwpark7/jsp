@@ -9,71 +9,89 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
-  <!-- 서블릿 등록해보기 -->
   <servlet>
-  	<servlet-name>myserv</servlet-name>
-  	<servlet-class>myweb.HelloServlet</servlet-class>
+    <servlet-name>myserv</servlet-name>
+    <servlet-class>myweb.HelloServlet</servlet-class>
   </servlet>
-  <!-- WAS 에 위 서블릿이 어떤 요청으로 오면 응답을 할건지를 지정함. 이걸 서블릿 매핑이라 함. -->
   <servlet-mapping>
-  	<servlet-name>myserv</servlet-name>
-  	<url-pattern>/hiServ</url-pattern>
+    <servlet-name>myserv</servlet-name>
+    <url-pattern>/hiServ</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-  	<servlet-name>myserv</servlet-name>
-  	<url-pattern>*.do</url-pattern>
+    <servlet-name>myserv</servlet-name>
+    <url-pattern>*.dd</url-pattern>
   </servlet-mapping>
-  
-  <!-- WAS 가 시작될 때 초기화 정보를 설정 -->
   <context-param>
-  	<param-name>init_param1</param-name>
-  	<param-value>contents saved</param-value>
+    <param-name>init_param1</param-name>
+    <param-value>contents saved</param-value>
   </context-param>
   <context-param>
-  	<param-name>propSrc</param-name>
-  	<param-value>D:\\initsrc\\dosome.prop</param-value>
-  </context-param>
-  
-  <!-- DB 정보 저장 -->
-  <context-param>
-  	<param-name>driver</param-name>
-  	<param-value>oracle.jdbc.OracleDriver</param-value>
+    <param-name>propSrc</param-name>
+    <param-value>D:\\initsrc\\dosome.prop</param-value>
   </context-param>
   <context-param>
-  	<param-name>url</param-name>
-  	<param-value>jdbc:oracle:thin:@localhost:1522:orcl</param-value>
+    <param-name>driver</param-name>
+    <param-value>oracle.jdbc.OracleDriver</param-value>
   </context-param>
   <context-param>
-  	<param-name>account</param-name>
-  	<param-value>chanw</param-value>
+    <param-name>url</param-name>
+    <param-value>jdbc:oracle:thin:@localhost:1522:orcl</param-value>
   </context-param>
   <context-param>
-  	<param-name>pw</param-name>
-  	<param-value>chanw</param-value>
-  </context-param>
-  
-  <!-- paging 처리를 위한 공통 페이지 속성 정의 -->
-  <context-param>
-  	<param-name>POSTS_PER_PAGE</param-name>
-  	<param-value>10</param-value>
+    <param-name>account</param-name>
+    <param-value>chanw</param-value>
   </context-param>
   <context-param>
-  	<param-name>POSTS_PER_BLOCK</param-name>
-  	<param-value>5</param-value>
+    <param-name>pw</param-name>
+    <param-value>chanw</param-value>
   </context-param>
-  
-  <!-- 예외(error) 발생시 핸들링 설정 -->
+  <context-param>
+    <param-name>POSTS_PER_PAGE</param-name>
+    <param-value>10</param-value>
+  </context-param>
+  <context-param>
+    <param-name>POSTS_PER_BLOCK</param-name>
+    <param-value>5</param-value>
+  </context-param>
   <error-page>
-  	<error-code>404</error-code><!-- page NotFound -->
-  	<location>/day002/exceptHandler.jsp</location>
+    <error-code>404</error-code>
+    <location>/day002/exceptHandler.jsp</location>
   </error-page>
   <error-page>
-  	<error-code>405</error-code><!-- forbidden -->
-  	<location>/day002/exceptHandler.jsp</location>
+    <error-code>405</error-code>
+    <location>/day002/exceptHandler.jsp</location>
   </error-page>
   <error-page>
-  	<error-code>500</error-code><!-- server down -->
-  	<location>/day002/exceptHandler.jsp</location>
+    <error-code>500</error-code>
+    <location>/day002/exceptHandler.jsp</location>
   </error-page>
+  <servlet>
+    <servlet-name>myGet</servlet-name>
+    <servlet-class>myweb.servs.GetRequestServ</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>myGet</servlet-name>
+    <url-pattern>/myGetServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SecondServ</display-name>
+    <servlet-name>SecondServ</servlet-name>
+    <servlet-class>myweb.servs.SecondServ</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SecondServ</servlet-name>
+    <url-pattern>/SecondServ</url-pattern>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ThirdServ</display-name>
+    <servlet-name>ThirdServ</servlet-name>
+    <servlet-class>myweb.servs.ThirdServ</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ThirdServ</servlet-name>
+    <url-pattern>/third</url-pattern>
+  </servlet-mapping>
 </web-app>
