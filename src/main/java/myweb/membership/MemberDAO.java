@@ -57,10 +57,11 @@ public class MemberDAO {
 			pstmt.setString(1, dto.getId());
 			ResultSet rs = pstmt.executeQuery();
 			
+			
 			if(rs.next()) {
 				//만약 row 가 존재한다면 ID 는 맞음. 암호 검증
 				String pw = rs.getString("pw");
-				if(pw.equalsIgnoreCase(dto.getPw())) {//사용자가 전송한 암호와 같은지 검증
+				if(pw.equals(dto.getPw())) {//사용자가 전송한 암호와 같은지 검증
 					//ID 와 PW 모두 OK DTO 에 모든 데이터 set
 					returnDTO = new MemberDTO();
 					returnDTO.setId(rs.getString("id"));

@@ -6,17 +6,16 @@ public class Main {
 	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
-		int x = sc.nextInt();
 		int max = 0;
 		int count = 0;
 		
-		for(int i = 0; i<x;i++) {
-			count++;
+		for(int i = 0; i<9;i++) {
 			int y = sc.nextInt();
 			if(y>max) {
 				max = y;
+				count=i;
 			}
 		}
-		System.out.println(max+"\n"+count);
+		System.out.println(max+"\n"+(count+1));
 	}
 }

@@ -82,7 +82,7 @@
   <servlet-mapping>
     <servlet-name>SecondServ</servlet-name>
     <url-pattern>/SecondServ</url-pattern>
-    <url-pattern>*.do</url-pattern>
+    <!-- <url-pattern>*.do</url-pattern> -->
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -93,5 +93,18 @@
   <servlet-mapping>
     <servlet-name>ThirdServ</servlet-name>
     <url-pattern>/third</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>회원가입 및 로그인 처리 컨트롤러</description>
+    <display-name>MemberController</display-name>
+    <servlet-name>MemberController</servlet-name>
+    <servlet-class>myweb.controllers.MemberController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberController</servlet-name>
+    <url-pattern>/mvcEx1/signUp.do</url-pattern>
+    <url-pattern>/mvcEx1/login.do</url-pattern>
+    <url-pattern>/mvcEx1/signForm.do</url-pattern>
+    <url-pattern>/mvcEx1/loginFail.do</url-pattern>
   </servlet-mapping>
 </web-app>
