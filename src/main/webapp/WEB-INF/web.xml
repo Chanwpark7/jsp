@@ -82,7 +82,6 @@
   <servlet-mapping>
     <servlet-name>SecondServ</servlet-name>
     <url-pattern>/SecondServ</url-pattern>
-    <!-- <url-pattern>*.do</url-pattern> -->
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -106,5 +105,25 @@
     <url-pattern>/mvcEx1/login.do</url-pattern>
     <url-pattern>/mvcEx1/signForm.do</url-pattern>
     <url-pattern>/mvcEx1/loginFail.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>파일 업로드 컨트롤러</description>
+    <display-name>UploadeController</display-name>
+    <servlet-name>UploadeController</servlet-name>
+    <servlet-class>myweb.controllers.file.UploadeController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadeController</servlet-name>
+    <url-pattern>/updown/uploadProc.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>파일리스트처리 서블릿</description>
+    <display-name>FileListServlet</display-name>
+    <servlet-name>FileListServlet</servlet-name>
+    <servlet-class>myweb.controllers.file.FileListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FileListServlet</servlet-name>
+    <url-pattern>/updown/fileList.do</url-pattern>
   </servlet-mapping>
 </web-app>
