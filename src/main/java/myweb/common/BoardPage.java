@@ -41,6 +41,7 @@ public class BoardPage {
 		return pageStr;
 	}
 	
+	//조회 후 출력되는 페이징
 	public static String pagingStr2(int totalCnt, int pageSize, int blockPage, int pageNum, String reqUrl,String searchWord,String searchField) {
 		String pageStr = "";
 		int totalPage = (int)(Math.ceil((double)totalCnt/pageSize));//12

@@ -1,5 +1,8 @@
 package myweb.common;
 
+import java.io.PrintWriter;
+
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.jsp.JspWriter;
 
 //이 클래스는 이름에서 보다시피 스크립트의 기능과 쿠키 set, get 기능을 자바로 구현함.
@@ -14,6 +17,22 @@ public class JSFunction {
 					+ url
 					+ "';"
 					+ "</script>";
+			out.println(script);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+	}
+	//서블릿에서 알럿띄우도록 오버로딩
+	//서블릿에서는 출력 객체가 printWriter 객체 이므로 response 객체로 받아서 객체 생성, 출력.
+	public static void alertLoc(String msg, HttpServletResponse response, String url) {
+		try {
+			String script = "<script>"
+					+ "alert('"+msg+"'); location.href='"
+					+ url
+					+ "';"
+					+ "</script>";
+			PrintWriter out = response.getWriter();
 			out.println(script);
 		} catch (Exception e) {
 			e.printStackTrace();

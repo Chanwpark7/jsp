@@ -1,6 +1,10 @@
 package myweb.file;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,6 +14,7 @@ import org.eclipse.tags.shaded.org.apache.xalan.xsltc.compiler.sym;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 
 /*
@@ -28,6 +33,55 @@ import jakarta.servlet.http.Part;
 public class FileUtil {
 	
 	//멀티업로드 요청시 처리하는 메소드 추가
+	//여기서 필요한 파라미터는 모두 컨트롤러에 파라미터로 전달되어있는 상태.
+	//단, 사용자 브라우저에 출력(output)을 하기 위해서는 response 객체가 필요함. 그래야 브라우저에 스트림을 열 수 있기 때문.
+	public static void download(HttpServletRequest request, HttpServletResponse response,
+			String saveDir, String sFileName, String oFileName) {
+		String theDir = request.getServletContext().getRealPath(saveDir);
+		
+		try{
+			File file = new File(theDir, sFileName);
+			InputStream inStr = new FileInputStream(file);
+			
+			String user_agent = request.getHeader("User-Agent");//브라우저마다 지원하는 문자셋이 틀릴 수 있으므로 어떤 브라우저인지 확인
+			if(user_agent.indexOf("WOW64")==1){
+				oFileName = new String(oFileName.getBytes("UTF-8"),"ISO-8859-1");
+			}else{
+				oFileName = new String(oFileName.getBytes("KSC5601"),"ISO-8859-1");
+			}
+			
+			//사용자 브라우저에 파일 다운 시작
+			//기존 응답객체의 설정을 모두 reset
+			response.reset();
+			
+			//전송마다 타입 선언(파일 다운로드시엔 항상 이 값이니 필요시 참조만 하면 됨.)
+			response.setContentType("application/octet-stream");
+			response.setHeader("Content-Disposition","attachment; filename=\""+oFileName+"\"");
+			
+			//다운로드될 파일 사이즈 header 설정
+			response.setHeader("Content-length",""+ file.length());
+			
+//			PrintWriter out = response.getWriter();
+//			//출력버퍼 초기화
+//			out.flush();
+			
+			//Response 객체를 이용해서 클라이언트 브라우저의 스트림 get
+			OutputStream output = response.getOutputStream();
+			
+			//input 에서 read 후 바로 write
+			byte[] b = new byte[(int)file.length()];
+			int readBuffer = 0;
+			while((readBuffer = inStr.read(b))!=-1){
+				output.write(b,0,readBuffer);
+			}
+			
+			inStr.close();
+			output.close();
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+	}
+	
 	//하나 이상의 파일이 올라가므로, 올라간 파일의 오리진 이름을 리턴해야 하니까 Collection 리턴
 	public static ArrayList<String> multiFileUp(HttpServletRequest req, String saveDir) throws ServletException, Exception{
 		ArrayList<String> files = new ArrayList<String>();
