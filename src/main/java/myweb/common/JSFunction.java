@@ -52,4 +52,17 @@ public class JSFunction {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	public static void alertBack(String msg, HttpServletResponse response) {
+		try {
+			String script = "<script>"
+					+ "alert('"+msg+"'); history.back();"
+					+ "</script>";
+			PrintWriter out = response.getWriter();
+			out.println(script);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+	}
 }

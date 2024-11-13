@@ -31,6 +31,17 @@ import jakarta.servlet.http.Part;
  * 받은 정보를 이용해서 rename 등을 거쳐서 필요정도는 DB에, 물리 파일은 WAS 에 저장하도록 함.
  */
 public class FileUtil {
+	//게시글 삭제시 File 삭제 메소드 정의
+	public static void delPostedFile(HttpServletRequest req, String savedDir, String sFileName) {
+		String theDir = req.getServletContext().getRealPath(savedDir);
+		
+		//위 forder 외 sfilename 을 file 객체로 생성해서 delete 해주면 됨.
+		File file = new File(theDir, sFileName);
+		if(file.exists()) {
+			file.delete();
+			System.out.println("File deleted");
+		}
+	}
 	
 	//멀티업로드 요청시 처리하는 메소드 추가
 	//여기서 필요한 파라미터는 모두 컨트롤러에 파라미터로 전달되어있는 상태.

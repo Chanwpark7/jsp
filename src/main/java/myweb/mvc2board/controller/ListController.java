@@ -52,6 +52,9 @@ public class ListController extends HttpServlet {
 		}
 		int start = (pageNum - 1)*pageSize+1;
 		int end = pageNum*pageSize;
+
+		int totalPage = (int)Math.ceil((double)totalCount/pageSize);
+		
 		
 		//글 목록 처리 쿼리에 start, end 매핑
 		map.put("start", start);
@@ -66,6 +69,7 @@ public class ListController extends HttpServlet {
 
 		//전체글 표시에 필요한 전체 글 갯수 전달
 		req.setAttribute("totalCount", totalCount);
+		req.setAttribute("totalPage", totalPage);
 		
 		//DB 글번호가 아닌, list 에 보여지는 글번호를 계산하기 위한 pageSize, blockSize 전달
 		req.setAttribute("pageSize", pageSize);

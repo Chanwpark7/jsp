@@ -13,8 +13,8 @@
 	   let confirmed = confirm('정말 삭제하시겠습니까?');
 	   if(confirmed){
 	      let form = document.writeFrm;
-	      form.method = "post";
-	      form.action = "delete.do?idx="+idx;
+	      form.method = "get";
+	      form.action = "delete.do";
 	      form.submit();
 	   }
 	}
@@ -23,8 +23,9 @@
 <body>
 	<jsp:include page="../common/link.jsp"/>
 	<h2>회원제 게시판 - 글쓰기 폼</h2>
-	<form name="writeFrm">
-		<input type = "hidden" name = "num" value = "${dto.idx }">
+	<form name="writeFrm" action = "delete.do">
+		<input type = "hidden" name = "idx" value = "${dto.idx }">
+		<input type = "hidden" name = "mode" value = "del">
 		<table border = "1" style = "width : 90%">
 			<tr>
 				<td>번호</td>
@@ -69,7 +70,7 @@
 			<tr>
 				<td colspan="4" align = "center">
 				<!-- 로그인 계정과 글 작성 계정이 같을 때만 수정, 삭제 버튼이 보이도록 조건 추가함. -->
-					<button type = "button" onclick="location.href = 'modify.do?idx=${dto.idx}'">수정하기</button>
+					<button type = "button" onclick="location.href = 'modify.do?idx=${dto.idx}&mode=modify'">수정하기</button>
 					<button type = "button" onclick="delPost(${dto.idx})">삭제하기</button>
 					<button type = "button" onclick="location.href = 'list.do'">목록보기</button>
 				</td>

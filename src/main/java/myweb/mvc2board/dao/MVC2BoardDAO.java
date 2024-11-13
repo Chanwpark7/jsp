@@ -181,9 +181,53 @@ public class MVC2BoardDAO {
 		return res;
 	}
 	
+	public int modifyWriteFile(String idx, String newOfile, String newSfile) {
+		int res = 0;
+		String upSql = "update mvcboard set ofile = ?, sfile = ? where idx = ?";
+
+		PreparedStatement pstmt;
+		
+		try {
+			pstmt = conn.prepareStatement(upSql);
+			pstmt.setString(1, newOfile);
+			pstmt.setString(2, newSfile);
+			pstmt.setInt(3, Integer.parseInt(idx));
+			res = pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			try {
+				conn.rollback();
+			} catch (Exception e2) {
+				System.out.println(e2.getMessage());
+			}
+		}
+		return res;
+	}
+	
+	public boolean checkPass(String pass, String idx) {
+		
+		String sql = "select pass from mvcboard where idx = ?";
+		PreparedStatement pstmt;
+		ResultSet rs;
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, idx);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return pass.equals(rs.getString("pass"));
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return false;
+	}
+	
 	public int deleteWrite(String idx) {
 		int res = 0;
-		String delSql = "delete from board where num = ?";
+		String delSql = "delete from mvcboard where idx = ?";
 		
 		PreparedStatement pstmt;
 		
