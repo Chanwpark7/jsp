@@ -26,13 +26,23 @@ public class ModifyController extends HttpServlet{
 		MVC2BoardDAO dao = new MVC2BoardDAO();
 		String saveDir = req.getServletContext().getRealPath("WAS_ATTACHED");
 		String oFileName = "";
+		String delFile = req.getParameter("delFile");
 		try {
 			oFileName = FileUtil.uploadFile(req, saveDir);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		
-		
+		if(delFile!="") {
+			String savedFileName = "";
+			String sFileName = req.getParameter("sfile");
+			
+			dao.modifyWriteFile(req.getParameter("idx"), oFileName, savedFileName);
+			if(sFileName!=null&&!sFileName.isEmpty()) {
+				//첨부파일이 존재한다면 이미지 삭제함.
+				FileUtil.delPostedFile(req, "/WAS_ATTACHED", sFileName);
+			}
+		}
 		if(oFileName!="") {
 			//이름 변경 후 세팅
 			String savedFileName = FileUtil.renameFile(saveDir, oFileName);

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +17,19 @@
 				return false;
 			}
 		}
+		
+		function delFile(){
+		    let attached = document.querySelector("#attached");
+		    document.getElementById("delFile").value = "delFile";
+
+		    attached.style.display="none";
+		}
+		
+		window.addEventListener('load', () => {
+			if(${empty dto.ofile }){
+				document.querySelector("#attached").style.display="none";
+			}
+		});
 	</script>
 </head>
 <body>
@@ -35,7 +49,10 @@
 			</tr>
 			<tr>
 				<td>첨부 파일</td>
-				<td><input type = "file" name = "ofile" style = "width : 98%;">${dto.ofile }</td>
+				<td><input type = "file" id = "ofile" name = "ofile" style = "width : 98%;">
+					<div id = "attached">${dto.ofile } <div onclick="delFile()" style = "cursor: pointer;">[삭제]</div></div>
+					<input type = "hidden" id = "delFile" name = "delFile" value = "">
+				</td>
 			</tr>
 			<tr>
 				<td colspan = "2" align = "center">
